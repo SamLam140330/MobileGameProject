@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class BigMeteoriteController : MonoBehaviour
+public class MeteoriteController : MonoBehaviour
 {
     private ObjectSpawnManager _objectSpawnManager = null;
 
@@ -12,7 +12,7 @@ public class BigMeteoriteController : MonoBehaviour
     private void Update()
     {
         Vector3 pos = transform.position;
-        pos.x -= _objectSpawnManager.cubeSpeed * Time.deltaTime;
+        pos.x -= _objectSpawnManager._objectSpeed * Time.deltaTime;
         transform.position = pos;
     }
 
@@ -20,15 +20,9 @@ public class BigMeteoriteController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            //_objectSpawnManager.ScoreTouch();
-            Debug.Log("Touch1");
+            Debug.Log("Collided with Meteorite");
+            _objectSpawnManager.ObjectTouch();
             //Destroy(gameObject);
         }
-        //else if (other.CompareTag("Boundary"))
-        //{
-        //    _objectSpawnManager.SpawnCube();
-        //    Debug.Log("Touch2");
-        //    Destroy(gameObject);
-        //}
     }
 }

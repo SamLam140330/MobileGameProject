@@ -2,5 +2,10 @@
 
 public class ObjectSpawnManager : MonoBehaviour
 {
-    [HideInInspector] public float cubeSpeed = 3.0f;
+    [HideInInspector] public float _objectSpeed = 3.0f;
+
+    public void ObjectTouch()
+    {
+
+    }
 }
