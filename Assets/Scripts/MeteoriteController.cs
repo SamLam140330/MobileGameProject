@@ -2,17 +2,17 @@
 
 public class MeteoriteController : MonoBehaviour
 {
-    private ObjectSpawnManager _objectSpawnManager = null;
+    private ObjectSpawnManager objectSpawnManager = null;
 
-    private void Start()
+    private void Awake()
     {
-        _objectSpawnManager = FindObjectOfType<ObjectSpawnManager>();
+        objectSpawnManager = FindObjectOfType<ObjectSpawnManager>();
     }
 
     private void Update()
     {
         Vector3 pos = transform.position;
-        pos.x -= _objectSpawnManager._objectSpeed * Time.deltaTime;
+        pos.x -= objectSpawnManager._objectSpeed * Time.deltaTime;
         transform.position = pos;
     }
 
@@ -20,9 +20,11 @@ public class MeteoriteController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Collided with Meteorite");
-            _objectSpawnManager.ObjectTouch();
-            //Destroy(gameObject);
+            objectSpawnManager.GameOver();
+        }
+        if (other.CompareTag("Barrier"))
+        {
+            gameObject.SetActive(false);
         }
     }
 }

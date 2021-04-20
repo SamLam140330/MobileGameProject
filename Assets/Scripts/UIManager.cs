@@ -1,26 +1,72 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _pauseMenu = null;
+    [SerializeField] private GameObject pausePanel = null;
+    [SerializeField] private GameObject gameOverPanel = null;
+    [SerializeField] private Image audioImage = null;
+    [SerializeField] private TextMeshProUGUI scoreTxt = null;
+    [SerializeField] private AudioSource[] audioSources = null;
+    private GameManager gameManager = null;
+
+    private void Awake()
+    {
+        gameManager = GameManager.Instance;
+        Time.timeScale = 1f;
+        UpdateScoreTxt();
+        pausePanel.SetActive(false);
+        gameOverPanel.SetActive(false);
+    }
 
     private void Start()
     {
-        Time.timeScale = 1f;
-        _pauseMenu.SetActive(false);
+        CheckAudioSetting();
+    }
+
+    private void CheckAudioSetting()
+    {
+        if (gameManager.isAudioOn == true)
+        {
+            audioImage.sprite = gameManager.images[1];
+            for (int i = 0; i < audioSources.Length; i++)
+            {
+                audioSources[i].Play();
+            }
+        }
+        else
+        {
+            audioImage.sprite = gameManager.images[0];
+            for (int i = 0; i < audioSources.Length; i++)
+            {
+                audioSources[i].Stop();
+            }
+        }
+    }
+
+    public void UpdateScoreTxt()
+    {
+        scoreTxt.SetText("Score: " + ((int)ObjectSpawnManager.score).ToString());
+    }
+
+    public void GameOver()
+    {
+        pausePanel.SetActive(false);
+        gameOverPanel.SetActive(true);
     }
 
     public void OnPauseButtonClicked()
     {
         Time.timeScale = 0f;
-        _pauseMenu.SetActive(true);
+        pausePanel.SetActive(true);
     }
 
     public void OnResumeButoonClicked()
     {
         Time.timeScale = 1f;
-        _pauseMenu.SetActive(false);
+        pausePanel.SetActive(false);
     }
 
     public void OnRetryButtonClicked()
@@ -35,6 +81,17 @@ public class UIManager : MonoBehaviour
 
     public void OnAudioButtonClicked()
     {
-
+        if (gameManager.isAudioOn == true)
+        {
+            audioImage.sprite = gameManager.images[0];
+            gameManager.isAudioOn = false;
+            CheckAudioSetting();
+        }
+        else
+        {
+            audioImage.sprite = gameManager.images[1];
+            gameManager.isAudioOn = true;
+            CheckAudioSetting();
+        }
     }
 }
