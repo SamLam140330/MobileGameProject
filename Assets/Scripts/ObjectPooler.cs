@@ -3,35 +3,62 @@ using UnityEngine;
 
 public class ObjectPooler : MonoBehaviour
 {
-    private List<GameObject> pooledObjects = null;
-    [SerializeField] private GameObject pooledObject = null;
+    private List<GameObject> pooledEnemy = null;
+    private List<GameObject> pooledBullet = null;
+    [SerializeField] private GameObject pooledEnemyObject = null;
+    [SerializeField] private GameObject pooledBulletObject = null;
     [SerializeField] private int pooledAmount = 20;
     [SerializeField] private bool willGrow = false;
 
     private void Start()
     {
-        pooledObjects = new List<GameObject>();
+        pooledEnemy = new List<GameObject>();
         for (int i = 0; i < pooledAmount; i++)
         {
-            GameObject obj = Instantiate(pooledObject);
+            GameObject obj = Instantiate(pooledEnemyObject);
             obj.SetActive(false);
-            pooledObjects.Add(obj);
+            pooledEnemy.Add(obj);
+        }
+        pooledBullet = new List<GameObject>();
+        for (int i = 0; i < pooledAmount; i++)
+        {
+            GameObject obj = Instantiate(pooledBulletObject);
+            obj.SetActive(false);
+            pooledBullet.Add(obj);
         }
     }
 
-    public GameObject GetPooledObject()
+    public GameObject GetPooledEnemyObject()
     {
-        if (willGrow == true && (pooledObjects[pooledObjects.Count - 1].activeInHierarchy == true))
+        if (willGrow == true && (pooledEnemy[pooledEnemy.Count - 1].activeInHierarchy == true))
         {
-            GameObject obj = Instantiate(pooledObject);
+            GameObject obj = Instantiate(pooledEnemyObject);
             obj.SetActive(false);
-            pooledObjects.Add(obj);
+            pooledEnemy.Add(obj);
         }
-        for (int i = 0; i < pooledObjects.Count; i++)
+        for (int i = 0; i < pooledEnemy.Count; i++)
         {
-            if (!pooledObjects[i].activeInHierarchy)
+            if (!pooledEnemy[i].activeInHierarchy)
             {
-                return pooledObjects[i];
+                return pooledEnemy[i];
+            }
+        }
+        return null;
+    }
+
+    public GameObject GetPooledBulletObject()
+    {
+        if (willGrow == true && (pooledBullet[pooledBullet.Count - 1].activeInHierarchy == true))
+        {
+            GameObject obj = Instantiate(pooledBulletObject);
+            obj.SetActive(false);
+            pooledBullet.Add(obj);
+        }
+        for (int i = 0; i < pooledBullet.Count; i++)
+        {
+            if (!pooledBullet[i].activeInHierarchy)
+            {
+                return pooledBullet[i];
             }
         }
         return null;

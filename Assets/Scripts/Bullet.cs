@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class MeteoriteController : MonoBehaviour
+public class Bullet : MonoBehaviour
 {
     private ObjectSpawnManager objectSpawnManager = null;
 
@@ -12,15 +12,16 @@ public class MeteoriteController : MonoBehaviour
     private void Update()
     {
         Vector3 pos = transform.position;
-        pos.x -= objectSpawnManager.objectSpeed * Time.deltaTime;
+        pos.x += objectSpawnManager.objectSpeed * Time.deltaTime;
         transform.position = pos;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Enemy"))
         {
-            objectSpawnManager.GameOver();
+            gameObject.SetActive(false);
+            other.gameObject.SetActive(false);
         }
         if (other.CompareTag("Barrier"))
         {

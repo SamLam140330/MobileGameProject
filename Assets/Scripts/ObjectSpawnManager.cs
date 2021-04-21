@@ -4,11 +4,12 @@ public class ObjectSpawnManager : MonoBehaviour
 {
     [HideInInspector] public bool isGameOver = false;
     [HideInInspector] public float randomPosY = 0.0f;
-    [HideInInspector] public float _objectSpeed = 3.0f;
+    [HideInInspector] public float objectSpeed = 3.0f;
     private GameObject player = null;
     private UIManager uiManager = null;
     private ObjectPooler objectPooler = null;
     private GameManager gameManager = null;
+    private PlayerController playerController = null;
     private int totalEnemy = 1;
     public static float score = 0;
 
@@ -18,6 +19,7 @@ public class ObjectSpawnManager : MonoBehaviour
         gameManager = GameManager.Instance;
         objectPooler = FindObjectOfType<ObjectPooler>();
         uiManager = FindObjectOfType<UIManager>();
+        playerController = FindObjectOfType<PlayerController>();
         player = GameObject.FindGameObjectWithTag("PlayerMain");
     }
 
@@ -34,10 +36,10 @@ public class ObjectSpawnManager : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        _objectSpeed += 0.2f;
+        objectSpeed += 0.2f;
         for (int i = 0; i < totalEnemy; i++)
         {
-            GameObject enemy = objectPooler.GetPooledObject();
+            GameObject enemy = objectPooler.GetPooledEnemyObject();
             if (enemy != null)
             {
                 randomPosY = Random.Range(-5, 5);
@@ -64,6 +66,7 @@ public class ObjectSpawnManager : MonoBehaviour
     public void GameOver()
     {
         CancelInvoke();
+        playerController.StopShot();
         isGameOver = true;
         uiManager.GameOver();
         player.SetActive(false);

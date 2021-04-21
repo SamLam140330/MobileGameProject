@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &425804814
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 425804815}
+  m_Layer: 8
+  m_Name: Bullet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &425804815
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425804814}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 4.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7620655228208942478}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &118304418715232429
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1652184230915723904}
   - component: {fileID: 7675107398664853376}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collider3
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -57,7 +87,7 @@ GameObject:
   - component: {fileID: 7609330279244361732}
   - component: {fileID: 7623962123835441964}
   - component: {fileID: 7623962123422430882}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: StarSparrow1
   m_TagString: PlayerMain
   m_Icon: {fileID: 0}
@@ -76,6 +106,7 @@ Transform:
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
   - {fileID: 7620678258768476904}
+  - {fileID: 425804815}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 180, y: -90, z: 90}
@@ -153,6 +184,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 935b04a6ba69e6549b85f0d36af0d89a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shot: {fileID: 6801502593910234389, guid: dd3b0b88aa22adf43b3e2efc4c35127c, type: 3}
+  shotSpawn: {fileID: 425804815}
 --- !u!1 &7622665103964941114
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,7 +196,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7628259995579091502}
   - component: {fileID: 7576712227964131544}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collider4
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -207,7 +240,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7620716683947783182}
   - component: {fileID: 7577906079318167290}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collider5
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -251,7 +284,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7628211698572000744}
   - component: {fileID: 7577874583876367216}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collider6
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -295,7 +328,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7628472974166856336}
   - component: {fileID: 7576388278857160678}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collider2
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -339,7 +372,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7628077023818165476}
   - component: {fileID: 7576248422789574640}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collider1
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -382,7 +415,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7620678258768476904}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
