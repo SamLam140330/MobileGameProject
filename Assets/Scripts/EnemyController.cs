@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class MeteoriteController : MonoBehaviour
+public class EnemyController : MonoBehaviour
 {
     private ObjectSpawnManager objectSpawnManager = null;
 

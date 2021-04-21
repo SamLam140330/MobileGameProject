@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -6,6 +7,7 @@ public class PlayerController : MonoBehaviour
     private ObjectSpawnManager objectSpawnManager = null;
     private ObjectPooler objectPooler = null;
     private Vector3 movement = Vector3.zero;
+    private float bulletTime = 6.0f;
 
     private void Awake()
     {
@@ -16,7 +18,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         transform.position = new Vector3(-8f, 0f, 0f);
-        InvokeRepeating(nameof(Shot), 1f, 2f);
+        StartCoroutine(ShotTest());
     }
 
     private void Update()
@@ -32,9 +34,13 @@ public class PlayerController : MonoBehaviour
             movement *= Time.deltaTime;
             transform.Translate(movement * 12.0f);
         }
+        if (bulletTime >= 0.5f)
+        {
+            bulletTime -= 0.1f * Time.deltaTime;
+        }
     }
 
-    private void Shot()
+    private IEnumerator ShotTest()
     {
         GameObject enemy = objectPooler.GetPooledBulletObject();
         if (enemy != null)
@@ -42,10 +48,12 @@ public class PlayerController : MonoBehaviour
             enemy.transform.position = shotSpawn.position;
             enemy.SetActive(true);
         }
+        yield return new WaitForSecondsRealtime(bulletTime);
+        StartCoroutine(ShotTest());
     }
 
     public void StopShot()
     {
-        CancelInvoke();
+        StopAllCoroutines();
     }
 }
