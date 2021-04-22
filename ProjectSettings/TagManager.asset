@@ -8,6 +8,8 @@ TagManager:
   - PlayerMain
   - Enemy
   - Bullet
+  - Item
+  - StrongEnemy
   layers:
   - Default
   - TransparentFX
@@ -22,7 +24,7 @@ TagManager:
   - Bullet
   - Border
   - Barrier
-  - 
+  - Item
   - 
   - 
   - 

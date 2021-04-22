@@ -7,6 +7,7 @@ public class MainMenuManager : MonoBehaviour
 {
     [SerializeField] private GameObject menuPanel = null;
     [SerializeField] private GameObject scorePanel = null;
+    [SerializeField] private GameObject creditPanel = null;
     [SerializeField] private TextMeshProUGUI scoreTxt = null;
     [SerializeField] private Image audioImage = null;
     [SerializeField] private AudioSource[] audioSources = null;
@@ -51,6 +52,12 @@ public class MainMenuManager : MonoBehaviour
         scorePanel.SetActive(true);
     }
 
+    public void OnCreditButtonClicked()
+    {
+        menuPanel.SetActive(false);
+        creditPanel.SetActive(true);
+    }
+
     public void OnAudioButtonClicked()
     {
         if (gameManager.isAudioOn == true)
@@ -75,6 +82,7 @@ public class MainMenuManager : MonoBehaviour
     public void OnBackClicked()
     {
         scorePanel.SetActive(false);
+        creditPanel.SetActive(false);
         menuPanel.SetActive(true);
     }
 }

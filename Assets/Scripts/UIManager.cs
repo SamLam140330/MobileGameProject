@@ -9,6 +9,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel = null;
     [SerializeField] private Image audioImage = null;
     [SerializeField] private TextMeshProUGUI scoreTxt = null;
+    [SerializeField] private TextMeshProUGUI gameoverScoreTxt = null;
+    [SerializeField] private TextMeshProUGUI gameoverHigherScoreTxt = null;
     [SerializeField] private AudioSource[] audioSources = null;
     private GameManager gameManager = null;
 
@@ -53,7 +55,13 @@ public class UIManager : MonoBehaviour
 
     public void GameOver()
     {
+        for (int i = 0; i < audioSources.Length; i++)
+        {
+            audioSources[i].Stop();
+        }
         pausePanel.SetActive(false);
+        gameoverScoreTxt.SetText("Your Score: " + ((int)ObjectSpawnManager.score).ToString());
+        gameoverHigherScoreTxt.SetText("Higher Score: " + gameManager.highestScore.ToString());
         gameOverPanel.SetActive(true);
     }
 

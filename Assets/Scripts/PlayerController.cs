@@ -7,7 +7,9 @@ public class PlayerController : MonoBehaviour
     private ObjectSpawnManager objectSpawnManager = null;
     private ObjectPooler objectPooler = null;
     private Vector3 movement = Vector3.zero;
-    private float bulletTime = 6.0f;
+    private bool hasBullet = false;
+    private float bulletTime = 6f;
+    public float bulletSpawnTime { get { return bulletTime; } private set { } }
 
     private void Awake()
     {
@@ -18,7 +20,6 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         transform.position = new Vector3(-8f, 0f, 0f);
-        StartCoroutine(ShotTest());
     }
 
     private void Update()
@@ -34,13 +35,25 @@ public class PlayerController : MonoBehaviour
             movement *= Time.deltaTime;
             transform.Translate(movement * 12.0f);
         }
-        if (bulletTime >= 0.5f)
+    }
+
+    public void AddBullet()
+    {
+        if (hasBullet == false)
         {
-            bulletTime -= 0.1f * Time.deltaTime;
+            hasBullet = true;
+            StartCoroutine(Shot());
+        }
+        else
+        {
+            if (bulletTime > 0.5f)
+            {
+                bulletTime -= 0.5f;
+            }
         }
     }
 
-    private IEnumerator ShotTest()
+    private IEnumerator Shot()
     {
         GameObject enemy = objectPooler.GetPooledBulletObject();
         if (enemy != null)
@@ -49,7 +62,7 @@ public class PlayerController : MonoBehaviour
             enemy.SetActive(true);
         }
         yield return new WaitForSecondsRealtime(bulletTime);
-        StartCoroutine(ShotTest());
+        StartCoroutine(Shot());
     }
 
     public void StopShot()
