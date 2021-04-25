@@ -1,10 +1,12 @@
-﻿using TMPro;
+﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    [SerializeField] private GameObject tipsPanel = null;
     [SerializeField] private GameObject pausePanel = null;
     [SerializeField] private GameObject gameOverPanel = null;
     [SerializeField] private Image audioImage = null;
@@ -27,6 +29,14 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         CheckAudioSetting();
+        StartCoroutine(ShowTips());
+    }
+
+    private IEnumerator ShowTips()
+    {
+        tipsPanel.SetActive(true);
+        yield return new WaitForSecondsRealtime(2f);
+        tipsPanel.SetActive(false);
     }
 
     private void CheckAudioSetting()
@@ -50,8 +60,11 @@ public class UIManager : MonoBehaviour
 
     public void GameOver()
     {
+        if (GameManager.Instance.isAudioOn == true)
+        {
+            explosionBgm.Play();
+        }
         backgroundBgm.Stop();
-        explosionBgm.Play();
         pausePanel.SetActive(false);
         gameOverScoreTxt.SetText("Your Score: " + (int)ObjectSpawnManager.Score);
         gameOverHigherScoreTxt.SetText("Higher Score: " + gameManager.highestScore);
