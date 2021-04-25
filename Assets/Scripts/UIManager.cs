@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private GameObject tipsPanel = null;
     [SerializeField] private GameObject pausePanel = null;
+    [SerializeField] private GameObject pauseBtn = null;
     [SerializeField] private GameObject gameOverPanel = null;
     [SerializeField] private Image audioImage = null;
     [SerializeField] private TextMeshProUGUI scoreTxt = null;
@@ -22,8 +23,12 @@ public class UIManager : MonoBehaviour
         gameManager = GameManager.Instance;
         Time.timeScale = 1f;
         UpdateScoreTxt();
+        tipsPanel.SetActive(true);
+        LeanTween.scale(tipsPanel, Vector3.one, 0f);
         pausePanel.SetActive(false);
-        gameOverPanel.SetActive(false);
+        pauseBtn.SetActive(true);
+        gameOverPanel.SetActive(true);
+        LeanTween.scale(gameOverPanel, Vector3.zero, 0f);
     }
 
     private void Start()
@@ -34,9 +39,8 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator ShowTips()
     {
-        tipsPanel.SetActive(true);
         yield return new WaitForSecondsRealtime(2f);
-        tipsPanel.SetActive(false);
+        LeanTween.scale(tipsPanel, Vector3.zero, 1f);
     }
 
     private void CheckAudioSetting()
@@ -66,20 +70,31 @@ public class UIManager : MonoBehaviour
         }
         backgroundBgm.Stop();
         pausePanel.SetActive(false);
+        pauseBtn.SetActive(false);
         gameOverScoreTxt.SetText("Your Score: " + (int)ObjectSpawnManager.Score);
         gameOverHigherScoreTxt.SetText("Higher Score: " + gameManager.highestScore);
-        gameOverPanel.SetActive(true);
+        LeanTween.scale(gameOverPanel, Vector3.one, 1f).setEase(LeanTweenType.easeInOutBack);
     }
 
     public void OnPauseButtonClicked()
     {
-        Time.timeScale = 0f;
+        GameManager.Instance.isPause = true;
+        if (GameManager.Instance.isAudioOn == true)
+        {
+            backgroundBgm.Pause();
+        }
         pausePanel.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     public void OnResumeButtonClicked()
     {
         Time.timeScale = 1f;
+        GameManager.Instance.isPause = false;
+        if (GameManager.Instance.isAudioOn == true)
+        {
+            backgroundBgm.Play();
+        }
         pausePanel.SetActive(false);
     }
 
@@ -99,13 +114,11 @@ public class UIManager : MonoBehaviour
         {
             audioImage.sprite = gameManager.images[0];
             gameManager.isAudioOn = false;
-            CheckAudioSetting();
         }
         else
         {
             audioImage.sprite = gameManager.images[1];
             gameManager.isAudioOn = true;
-            CheckAudioSetting();
         }
     }
 }

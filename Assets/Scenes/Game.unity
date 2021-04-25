@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &15261621
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1524,7 +1524,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1033238780
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1604,7 +1604,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1047253393
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1747,7 +1747,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1258336611
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2495,8 +2495,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tipsPanel: {fileID: 1866634790}
-  pausePanel: {fileID: 1258336610}
-  gameOverPanel: {fileID: 1047253392}
+  pausePanel: {fileID: 1033238779}
+  pauseBtn: {fileID: 1823685837}
+  gameOverPanel: {fileID: 15261620}
   audioImage: {fileID: 267475000}
   scoreTxt: {fileID: 517880172}
   gameOverScoreTxt: {fileID: 189223723}

@@ -61,14 +61,17 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Shot()
     {
-        GameObject enemy = objectPool.GetPooledBulletObject();
-        if (enemy != null)
+        if (GameManager.Instance.isPause == false)
         {
-            enemy.transform.position = shotSpawn.position;
-            enemy.SetActive(true);
-            if (GameManager.Instance.isAudioOn == true)
+            GameObject enemy = objectPool.GetPooledBulletObject();
+            if (enemy != null)
             {
-                shootBgm.Play();
+                enemy.transform.position = shotSpawn.position;
+                enemy.SetActive(true);
+                if (GameManager.Instance.isAudioOn == true)
+                {
+                    shootBgm.Play();
+                }
             }
         }
         yield return new WaitForSecondsRealtime(bulletTime);

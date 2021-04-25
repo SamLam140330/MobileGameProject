@@ -26,6 +26,10 @@ public class ItemController : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerController.AddBullet();
+            if (GameManager.Instance.isAudioOn == true)
+            {
+                GameManager.Instance.PlaySound(0);
+            }
             gameObject.SetActive(false);
         }
         if (other.CompareTag("Barrier"))

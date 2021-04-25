@@ -63,7 +63,7 @@ public class ObjectSpawnManager : MonoBehaviour
     private void ChangeToHardMode()
     {
         CancelInvoke(nameof(SpawnEnemy));
-        InvokeRepeating(nameof(SpawnEnemy), 0f, 2f);
+        InvokeRepeating(nameof(SpawnEnemy), 0f, 1.5f);
         backgroundController.bgMoveSpeed = 10f;
     }
 
