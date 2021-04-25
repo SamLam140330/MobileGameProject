@@ -3,10 +3,16 @@
 public class EnemyBController : MonoBehaviour
 {
     private ObjectSpawnManager objectSpawnManager = null;
+    private int enemyBhp = 3;
 
     private void Awake()
     {
         objectSpawnManager = FindObjectOfType<ObjectSpawnManager>();
+    }
+
+    private void OnEnable()
+    {
+        enemyBhp = 3;
     }
 
     private void Update()
@@ -21,13 +27,22 @@ public class EnemyBController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("Barrier"))
+        {
+            gameObject.SetActive(false);
+        }
         if (other.CompareTag("Player"))
         {
             objectSpawnManager.GameOver();
         }
-        if (other.CompareTag("Barrier"))
+        if (other.CompareTag("Bullet"))
         {
-            gameObject.SetActive(false);
+            other.gameObject.SetActive(false);
+            enemyBhp -= 1;
+            if (enemyBhp <= 0)
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 }

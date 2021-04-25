@@ -11,11 +11,6 @@ public class BulletController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
-        {
-            gameObject.SetActive(false);
-            other.gameObject.SetActive(false);
-        }
         if (other.CompareTag("Barrier"))
         {
             gameObject.SetActive(false);

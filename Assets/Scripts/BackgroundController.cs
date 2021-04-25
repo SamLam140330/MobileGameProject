@@ -3,8 +3,8 @@
 public class BackgroundController : MonoBehaviour
 {
     [SerializeField] private ObjectSpawnManager objectSpawnManager = null;
-    public float bgMoveSpeed = 1f;
     private float speed = 1f;
+    public float bgMoveSpeed = 1f;
 
     private void Update()
     {

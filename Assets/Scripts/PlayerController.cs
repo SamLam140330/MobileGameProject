@@ -4,17 +4,18 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Transform shotSpawn = null;
+    [SerializeField] private AudioSource shootBgm = null;
     private ObjectSpawnManager objectSpawnManager = null;
-    private ObjectPooler objectPooler = null;
+    private ObjectPooler objectPool = null;
     private Vector3 movement = Vector3.zero;
     private bool hasBullet = false;
     private float bulletTime = 6f;
-    public float bulletSpawnTime { get { return bulletTime; } private set { } }
+    public float BulletSpawnTime { get { return bulletTime; } private set { } }
 
     private void Awake()
     {
         objectSpawnManager = FindObjectOfType<ObjectSpawnManager>();
-        objectPooler = FindObjectOfType<ObjectPooler>();
+        objectPool = FindObjectOfType<ObjectPooler>();
     }
 
     private void Start()
@@ -23,6 +24,11 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Update()
+    {
+        Control();
+    }
+
+    private void Control()
     {
         if (objectSpawnManager.isGameOver == false)
         {
@@ -33,7 +39,7 @@ public class PlayerController : MonoBehaviour
                 movement.Normalize();
             }
             movement *= Time.deltaTime;
-            transform.Translate(movement * 12.0f);
+            transform.Translate(movement * 13.0f);
         }
     }
 
@@ -55,11 +61,15 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Shot()
     {
-        GameObject enemy = objectPooler.GetPooledBulletObject();
+        GameObject enemy = objectPool.GetPooledBulletObject();
         if (enemy != null)
         {
             enemy.transform.position = shotSpawn.position;
             enemy.SetActive(true);
+            if (GameManager.Instance.isAudioOn == true)
+            {
+                shootBgm.Play();
+            }
         }
         yield return new WaitForSecondsRealtime(bulletTime);
         StartCoroutine(Shot());

@@ -10,14 +10,19 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private GameObject creditPanel = null;
     [SerializeField] private TextMeshProUGUI scoreTxt = null;
     [SerializeField] private Image audioImage = null;
-    [SerializeField] private AudioSource[] audioSources = null;
+    [SerializeField] private AudioSource audioSources = null;
     private GameManager gameManager = null;
+
+    private void Awake()
+    {
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+    }
 
     private void Start()
     {
         gameManager = GameManager.Instance;
         gameManager.highestScore = PlayerPrefs.GetInt("HighestScore", 0);
-        scoreTxt.SetText("The highest score: " + gameManager.highestScore);
+        scoreTxt.SetText("The highest Score: " + gameManager.highestScore);
         CheckAudioSetting();
     }
 
@@ -26,18 +31,12 @@ public class MainMenuManager : MonoBehaviour
         if (gameManager.isAudioOn == true)
         {
             audioImage.sprite = gameManager.images[1];
-            for (int i = 0; i < audioSources.Length; i++)
-            {
-                audioSources[i].Play();
-            }
+            audioSources.Play();
         }
         else
         {
             audioImage.sprite = gameManager.images[0];
-            for (int i = 0; i < audioSources.Length; i++)
-            {
-                audioSources[i].Stop();
-            }
+            audioSources.Stop();
         }
     }
 

@@ -9,9 +9,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel = null;
     [SerializeField] private Image audioImage = null;
     [SerializeField] private TextMeshProUGUI scoreTxt = null;
-    [SerializeField] private TextMeshProUGUI gameoverScoreTxt = null;
-    [SerializeField] private TextMeshProUGUI gameoverHigherScoreTxt = null;
-    [SerializeField] private AudioSource[] audioSources = null;
+    [SerializeField] private TextMeshProUGUI gameOverScoreTxt = null;
+    [SerializeField] private TextMeshProUGUI gameOverHigherScoreTxt = null;
+    [SerializeField] private AudioSource backgroundBgm = null;
+    [SerializeField] private AudioSource explosionBgm = null;
     private GameManager gameManager = null;
 
     private void Awake()
@@ -33,35 +34,27 @@ public class UIManager : MonoBehaviour
         if (gameManager.isAudioOn == true)
         {
             audioImage.sprite = gameManager.images[1];
-            for (int i = 0; i < audioSources.Length; i++)
-            {
-                audioSources[i].Play();
-            }
+            backgroundBgm.Play();
         }
         else
         {
             audioImage.sprite = gameManager.images[0];
-            for (int i = 0; i < audioSources.Length; i++)
-            {
-                audioSources[i].Stop();
-            }
+            backgroundBgm.Stop();
         }
     }
 
     public void UpdateScoreTxt()
     {
-        scoreTxt.SetText("Score: " + ((int)ObjectSpawnManager.score).ToString());
+        scoreTxt.SetText("Score: " + (int)ObjectSpawnManager.Score);
     }
 
     public void GameOver()
     {
-        for (int i = 0; i < audioSources.Length; i++)
-        {
-            audioSources[i].Stop();
-        }
+        backgroundBgm.Stop();
+        explosionBgm.Play();
         pausePanel.SetActive(false);
-        gameoverScoreTxt.SetText("Your Score: " + ((int)ObjectSpawnManager.score).ToString());
-        gameoverHigherScoreTxt.SetText("Higher Score: " + gameManager.highestScore.ToString());
+        gameOverScoreTxt.SetText("Your Score: " + (int)ObjectSpawnManager.Score);
+        gameOverHigherScoreTxt.SetText("Higher Score: " + gameManager.highestScore);
         gameOverPanel.SetActive(true);
     }
 
@@ -71,7 +64,7 @@ public class UIManager : MonoBehaviour
         pausePanel.SetActive(true);
     }
 
-    public void OnResumeButoonClicked()
+    public void OnResumeButtonClicked()
     {
         Time.timeScale = 1f;
         pausePanel.SetActive(false);
