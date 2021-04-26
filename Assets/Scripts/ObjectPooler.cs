@@ -44,7 +44,7 @@ public class ObjectPooler : MonoBehaviour
             pooledBullet.Add(obj);
         }
         pooledItem = new List<GameObject>();
-        for (int i = 0; i < otherPooledAmount; i++)
+        for (int i = 0; i < 3; i++)
         {
             GameObject obj = Instantiate(pooledItemObject);
             obj.SetActive(false);
