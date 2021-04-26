@@ -39,7 +39,14 @@ public class EnemyBController : MonoBehaviour
         {
             other.gameObject.SetActive(false);
             enemyBhp -= 1;
-            if (enemyBhp <= 0)
+            if (enemyBhp > 0)
+            {
+                if (GameManager.Instance.isAudioOn == true)
+                {
+                    GameManager.Instance.PlaySound(2);
+                }
+            }
+            else
             {
                 if (GameManager.Instance.isAudioOn == true)
                 {

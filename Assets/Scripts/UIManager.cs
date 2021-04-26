@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         gameManager = GameManager.Instance;
+        gameManager.isPause = false;
         Time.timeScale = 1f;
         UpdateScoreTxt();
         tipsPanel.SetActive(true);
@@ -64,7 +65,7 @@ public class UIManager : MonoBehaviour
 
     public void GameOver()
     {
-        if (GameManager.Instance.isAudioOn == true)
+        if (gameManager.isAudioOn == true)
         {
             explosionBgm.Play();
         }
@@ -78,8 +79,8 @@ public class UIManager : MonoBehaviour
 
     public void OnPauseButtonClicked()
     {
-        GameManager.Instance.isPause = true;
-        if (GameManager.Instance.isAudioOn == true)
+        gameManager.isPause = true;
+        if (gameManager.isAudioOn == true)
         {
             backgroundBgm.Pause();
         }
@@ -90,8 +91,8 @@ public class UIManager : MonoBehaviour
     public void OnResumeButtonClicked()
     {
         Time.timeScale = 1f;
-        GameManager.Instance.isPause = false;
-        if (GameManager.Instance.isAudioOn == true)
+        gameManager.isPause = false;
+        if (gameManager.isAudioOn == true)
         {
             backgroundBgm.Play();
         }

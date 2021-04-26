@@ -7,6 +7,7 @@ public class GameManager : SingletonManager<GameManager>
     [HideInInspector] public bool isPause = false;
     public AudioSource itemPickupBgm = null;
     public AudioSource stoneDestroyBgm = null;
+    public AudioSource hitBgm = null;
     public Sprite[] images = null;
 
     public void PlaySound(int type)
@@ -15,9 +16,13 @@ public class GameManager : SingletonManager<GameManager>
         {
             itemPickupBgm.Play();
         }
-        else
+        else if (type == 1)
         {
             stoneDestroyBgm.Play();
+        }
+        else
+        {
+            hitBgm.Play();
         }
     }
 }

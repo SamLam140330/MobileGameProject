@@ -22,6 +22,7 @@ public class ObjectSpawnManager : MonoBehaviour
         Score = 0;
         changeHardMode = false;
         isHardMode = false;
+        isGameOver = false;
         gameManager = GameManager.Instance;
         objectPool = FindObjectOfType<ObjectPooler>();
         uiManager = FindObjectOfType<UIManager>();
